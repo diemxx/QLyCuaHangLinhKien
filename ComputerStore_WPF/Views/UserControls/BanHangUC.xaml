@@ -1,0 +1,151 @@
+<UserControl x:Class="ComputerStore_WPF.Views.UserControls.BanHangUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:conv="clr-namespace:ComputerStore_WPF.Converters"
+             Background="#E8F1EC">
+    <UserControl.Resources>
+        <conv:CurrencyFormatConverter x:Key="CurrencyFmt"/>
+    </UserControl.Resources>
+
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="380"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Margin="0,0,15,0">
+            <TextBlock Text="BÁN HÀNG" FontSize="22" FontWeight="Bold" Foreground="#2C3D38" Margin="0,0,0,10"/>
+
+            <WrapPanel Margin="0,0,0,10">
+                <TextBox Text="{Binding SearchSP, UpdateSourceTrigger=PropertyChanged}" 
+                         Width="250" Height="32" Padding="8,5" FontSize="13" 
+                         Background="#FFFFFF" Foreground="#2C3D38" BorderBrush="#C2D6CE" CaretBrush="#2A9D8F">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding SearchSPCommand}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button Content="TÌM" Command="{Binding SearchSPCommand}" 
+                        Width="45" Height="32" Background="#2A9D8F" Foreground="White" 
+                        BorderThickness="0" Cursor="Hand" Margin="5,0"/>
+            </WrapPanel>
+
+            <DataGrid ItemsSource="{Binding DanhSachSP}" SelectedItem="{Binding SelectedSP}" 
+                      AutoGenerateColumns="False" IsReadOnly="True" MaxHeight="300"
+                      Background="#FFFFFF" Foreground="#2C3D38" RowBackground="#FFFFFF" 
+                      AlternatingRowBackground="#F4F8F6" BorderBrush="#C2D6CE" BorderThickness="1" 
+                      GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#E0EAE5" HeadersVisibility="Column">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#4A7C6B"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Padding" Value="8,5"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Mã" Binding="{Binding MaSP}" Width="60"/>
+                    <DataGridTextColumn Header="Tên SP" Binding="{Binding TenSP}" Width="*"/>
+                    <DataGridTextColumn Header="Giá bán" Binding="{Binding GiaBan, Converter={StaticResource CurrencyFmt}}" Width="120"/>
+                    <DataGridTextColumn Header="Tồn" Binding="{Binding SoLuongTon}" Width="50"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <WrapPanel Margin="0,10,0,0">
+                <TextBlock Text="Số lượng:" Foreground="#557A6F" FontSize="13" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                <TextBox Text="{Binding SoLuongMua}" Width="60" Height="30" FontSize="13" Padding="5,4" 
+                         Background="#FFFFFF" Foreground="#2C3D38" BorderBrush="#C2D6CE" CaretBrush="#2A9D8F"/>
+                <Button Content="Thêm vào giỏ" Command="{Binding AddToCartCommand}" 
+                        Height="30" Padding="12,0" FontSize="13" Background="#3A8970" 
+                        Foreground="White" BorderThickness="0" Cursor="Hand" Margin="10,0"/>
+            </WrapPanel>
+
+            <TextBlock Text="GIỎ HÀNG" FontSize="16" FontWeight="Bold" Foreground="#2A9D8F" Margin="0,20,0,8"/>
+            <DataGrid ItemsSource="{Binding GioHang}" AutoGenerateColumns="False" IsReadOnly="True" MaxHeight="200"
+                      Background="#FFFFFF" Foreground="#2C3D38" RowBackground="#FFFFFF" 
+                      AlternatingRowBackground="#F4F8F6" BorderBrush="#C2D6CE" BorderThickness="1" 
+                      GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#E0EAE5" HeadersVisibility="Column">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#4A7C6B"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Padding" Value="8,5"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Mã" Binding="{Binding MaSP}" Width="60"/>
+                    <DataGridTextColumn Header="Tên SP" Binding="{Binding TenSP}" Width="*"/>
+                    <DataGridTextColumn Header="SL" Binding="{Binding SoLuong}" Width="40"/>
+                    <DataGridTextColumn Header="Đơn giá" Binding="{Binding DonGiaBan, Converter={StaticResource CurrencyFmt}}" Width="110"/>
+                    <DataGridTextColumn Header="Thành tiền" Binding="{Binding ThanhTien, Converter={StaticResource CurrencyFmt}}" Width="120"/>
+                    <DataGridTemplateColumn Header="" Width="45">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Xóa" 
+                                        Command="{Binding DataContext.RemoveFromCartCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                        CommandParameter="{Binding}" Background="Transparent" 
+                                        Foreground="#E07A5F" BorderThickness="0" Cursor="Hand" FontSize="12" FontWeight="SemiBold"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <Border Grid.Column="1" Background="#FFFFFF" BorderBrush="#C2D6CE" BorderThickness="1" CornerRadius="12" Padding="20">
+            <StackPanel>
+                <TextBlock Text="THANH TOÁN" FontSize="18" FontWeight="Bold" Foreground="#2C3D38" Margin="0,0,0,15"/>
+
+                <TextBlock Text="Khách hàng:" Foreground="#557A6F" FontSize="12" Margin="0,0,0,5"/>
+                <ComboBox ItemsSource="{Binding DanhSachKH}" SelectedItem="{Binding SelectedKH}" 
+                          DisplayMemberPath="TenKH" Height="32" FontSize="12" Margin="0,0,0,10"/>
+
+                <TextBlock Text="{Binding DiemKH, StringFormat='Điểm tích lũy: {0} điểm'}" 
+                           Foreground="#D48166" FontSize="12" Margin="0,0,0,3"/>
+                <TextBlock Text="{Binding GiamGiaToiDa, StringFormat='Giảm tối đa: {0:#,##0} VNĐ', Converter={StaticResource CurrencyFmt}}" 
+                           Foreground="#D48166" FontSize="11" Margin="0,0,0,10"/>
+
+                <Border Height="1" Background="#E0EAE5" Margin="0,5"/>
+
+                <StackPanel Margin="0,10">
+                    <DockPanel Margin="0,3">
+                        <TextBlock Text="Tổng tiền:" Foreground="#557A6F"/>
+                        <TextBlock Text="{Binding TongTien, Converter={StaticResource CurrencyFmt}}" 
+                                   Foreground="#2C3D38" FontWeight="Bold" HorizontalAlignment="Right"/>
+                    </DockPanel>
+                    <DockPanel Margin="0,5">
+                        <TextBlock Text="Giảm giá:" Foreground="#557A6F" VerticalAlignment="Center"/>
+                        <TextBox Text="{Binding GiamGia, UpdateSourceTrigger=PropertyChanged}" 
+                                 Width="120" Height="28" FontSize="12" Padding="5,3" 
+                                 Background="#FFFFFF" Foreground="#2C3D38" BorderBrush="#C2D6CE" 
+                                 HorizontalAlignment="Right" CaretBrush="#2A9D8F"/>
+                    </DockPanel>
+                    <Button Content="Áp dụng giảm giá" Command="{Binding ApplyDiscountCommand}" 
+                            Height="28" FontSize="11" Background="#6B8E85" Foreground="White" 
+                            BorderThickness="0" Cursor="Hand" Margin="0,5"/>
+                </StackPanel>
+
+                <Border Height="2" Background="#E07A5F" Margin="0,5"/>
+                <DockPanel Margin="0,10">
+                    <TextBlock Text="THÀNH TIỀN:" FontSize="16" FontWeight="Bold" Foreground="#E07A5F"/>
+                    <TextBlock Text="{Binding ThanhTienThucTe, Converter={StaticResource CurrencyFmt}}" 
+                               FontSize="18" FontWeight="Bold" Foreground="#E07A5F" HorizontalAlignment="Right"/>
+                </DockPanel>
+
+                <Button Content="TẠO HÓA ĐƠN" Command="{Binding CreateInvoiceCommand}" 
+                        Height="42" FontSize="14" FontWeight="Bold" Background="#2A9D8F" 
+                        Foreground="White" BorderThickness="0" Cursor="Hand" Margin="0,10,0,5"/>
+                <Button Content="XUẤT HÓA ĐƠN" Command="{Binding ExportInvoiceCommand}" 
+                        Height="36" FontSize="13" FontWeight="Bold" Background="#3A8970" 
+                        Foreground="White" BorderThickness="0" Cursor="Hand" Margin="0,0,0,5"
+                        IsEnabled="{Binding CanExport}"/>
+                <Button Content="TRẢ GÓP" Command="{Binding TraGopCommand}" 
+                        Height="36" FontSize="13" Background="#4A7C6B" 
+                        Foreground="White" BorderThickness="0" Cursor="Hand" Margin="0,0,0,5"/>
+                <Button Content="Xóa giỏ" Command="{Binding ClearCartCommand}" 
+                        Height="30" FontSize="12" Background="#E07A5F" 
+                        Foreground="White" BorderThickness="0" Cursor="Hand"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

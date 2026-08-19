@@ -1,0 +1,182 @@
+<Window x:Class="ComputerStore_WPF.Views.RegisterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Đăng ký tài khoản - Computer Store"
+        Height="720" Width="460"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="#E8F1EC">
+    <Window.Resources>
+        <Style x:Key="InputStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="10,7"/>
+            <Setter Property="Background" Value="#F8FAF9"/>
+            <Setter Property="Foreground" Value="#2C3D38"/>
+            <Setter Property="BorderBrush" Value="#C2D6CE"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="CaretBrush" Value="#2A9D8F"/>
+        </Style>
+        <Style x:Key="PasswordStyle" TargetType="PasswordBox">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="10,7"/>
+            <Setter Property="Background" Value="#F8FAF9"/>
+            <Setter Property="Foreground" Value="#2C3D38"/>
+            <Setter Property="BorderBrush" Value="#C2D6CE"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="CaretBrush" Value="#2A9D8F"/>
+        </Style>
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#557A6F"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,0,4"/>
+        </Style>
+        <Style x:Key="ErrorStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#E07A5F"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Margin" Value="2,2,0,0"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style x:Key="HintStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#9CAEA8"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Margin" Value="2,1,0,6"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Border Background="#FFFFFF" CornerRadius="15" Margin="22" Padding="26">
+            <Border.Effect>
+                <DropShadowEffect Color="#98B8AD" BlurRadius="25" ShadowDepth="5" Opacity="0.3"/>
+            </Border.Effect>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <!-- Header -->
+                    <TextBlock Text="💻" FontSize="34" HorizontalAlignment="Center" Margin="0,0,0,4"/>
+                    <TextBlock Text="ĐĂNG KÝ TÀI KHOẢN" FontSize="19" FontWeight="Bold"
+                               Foreground="#2A9D8F" HorizontalAlignment="Center" Margin="0,0,0,2"/>
+                    <TextBlock Text="Computer Store - Nhóm 03" FontSize="11"
+                               Foreground="#6B8E85" HorizontalAlignment="Center" Margin="0,0,0,16"/>
+
+                    <!-- Họ và tên -->
+                    <TextBlock Style="{StaticResource LabelStyle}">
+                        <Run Text="Họ và tên"/>
+                        <Run Text=" *" Foreground="#E07A5F"/>
+                    </TextBlock>
+                    <TextBox x:Name="txtHoTen" Style="{StaticResource InputStyle}"
+                             Text="{Binding HoTen, UpdateSourceTrigger=PropertyChanged}"
+                             Margin="0,0,0,2"/>
+                    <TextBlock Text="{Binding HoTenError}" Style="{StaticResource ErrorStyle}"/>
+                    <TextBlock Text="Từ 2 đến 100 ký tự, không để trống" Style="{StaticResource HintStyle}"/>
+
+                    <!-- Số điện thoại -->
+                    <TextBlock Style="{StaticResource LabelStyle}">
+                        <Run Text="Số điện thoại"/>
+                        <Run Text=" *" Foreground="#E07A5F"/>
+                    </TextBlock>
+                    <TextBox x:Name="txtSDT" Style="{StaticResource InputStyle}"
+                             Text="{Binding SDT, UpdateSourceTrigger=PropertyChanged}"
+                             Margin="0,0,0,2"/>
+                    <TextBlock Text="{Binding SDTError}" Style="{StaticResource ErrorStyle}"/>
+                    <TextBlock Text="10 chữ số, bắt đầu bằng 03x / 05x / 07x / 08x / 09x  (VD: 0912345678)" Style="{StaticResource HintStyle}"/>
+
+                    <!-- Email -->
+                    <TextBlock Style="{StaticResource LabelStyle}">
+                        <Run Text="Email"/>
+                        <Run Text=" *" Foreground="#E07A5F"/>
+                    </TextBlock>
+                    <TextBox x:Name="txtEmail" Style="{StaticResource InputStyle}"
+                             Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
+                             Margin="0,0,0,2"/>
+                    <TextBlock Text="{Binding EmailError}" Style="{StaticResource ErrorStyle}"/>
+                    <TextBlock Text="Định dạng hợp lệ: ten@domain.com  (VD: example@gmail.com)" Style="{StaticResource HintStyle}"/>
+
+                    <!-- Tên đăng nhập -->
+                    <TextBlock Style="{StaticResource LabelStyle}">
+                        <Run Text="Tên đăng nhập"/>
+                        <Run Text=" *" Foreground="#E07A5F"/>
+                    </TextBlock>
+                    <TextBox x:Name="txtTenDangNhap" Style="{StaticResource InputStyle}"
+                             Text="{Binding TenDangNhap, UpdateSourceTrigger=PropertyChanged}"
+                             Margin="0,0,0,2"/>
+                    <TextBlock Text="{Binding TenDangNhapError}" Style="{StaticResource ErrorStyle}"/>
+                    <TextBlock Text="4–50 ký tự, chỉ dùng chữ cái (a-z, A-Z), chữ số (0-9) và dấu gạch dưới (_)" Style="{StaticResource HintStyle}"/>
+
+                    <!-- Mật khẩu -->
+                    <TextBlock Style="{StaticResource LabelStyle}">
+                        <Run Text="Mật khẩu"/>
+                        <Run Text=" *" Foreground="#E07A5F"/>
+                    </TextBlock>
+                    <PasswordBox x:Name="txtMatKhau" Style="{StaticResource PasswordStyle}"
+                                 Margin="0,0,0,2"
+                                 PasswordChanged="TxtMatKhau_PasswordChanged"/>
+                    <TextBlock Text="{Binding MatKhauError}" Style="{StaticResource ErrorStyle}"/>
+                    <TextBlock Style="{StaticResource HintStyle}">
+                        <Run Text="Tối thiểu 8 ký tự · Phải có ít nhất 1 chữ HOA (A-Z)"/>
+                        <LineBreak/>
+                        <Run Text="Phải có ít nhất 1 chữ thường (a-z) · Phải có ít nhất 1 chữ số (0-9)"/>
+                    </TextBlock>
+
+                    <!-- Xác nhận mật khẩu -->
+                    <TextBlock Style="{StaticResource LabelStyle}">
+                        <Run Text="Xác nhận mật khẩu"/>
+                        <Run Text=" *" Foreground="#E07A5F"/>
+                    </TextBlock>
+                    <PasswordBox x:Name="txtXacNhanMatKhau" Style="{StaticResource PasswordStyle}"
+                                 Margin="0,0,0,2"
+                                 PasswordChanged="TxtXacNhanMatKhau_PasswordChanged"/>
+                    <TextBlock Text="{Binding XacNhanMatKhauError}" Style="{StaticResource ErrorStyle}"/>
+                    <TextBlock Text="Nhập lại mật khẩu ở trên để xác nhận" Style="{StaticResource HintStyle}"/>
+
+                    <!-- Thông báo chung -->
+                    <TextBlock Text="{Binding ErrorMessage}" Foreground="#E07A5F" FontSize="12"
+                               FontWeight="Medium" TextWrapping="Wrap" HorizontalAlignment="Center"
+                               Margin="0,4,0,4"/>
+                    <TextBlock Text="{Binding SuccessMessage}" Foreground="#2A9D8F" FontSize="12"
+                               FontWeight="Medium" TextWrapping="Wrap" HorizontalAlignment="Center"
+                               Margin="0,0,0,4"/>
+
+                    <!-- Nút ĐĂNG KÝ -->
+                    <Button Content="ĐĂNG KÝ" Height="42" FontSize="14" FontWeight="Bold"
+                            Foreground="White" Cursor="Hand" Margin="0,6,0,12"
+                            Click="BtnRegister_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#2A9D8F"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" CornerRadius="8" Padding="10">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#21867A"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <!-- Quay lại đăng nhập -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Đã có tài khoản? " Foreground="#6B8E85" FontSize="12"/>
+                        <TextBlock Foreground="#2A9D8F" FontSize="12" FontWeight="SemiBold"
+                                   Cursor="Hand" TextDecorations="Underline"
+                                   MouseLeftButtonUp="BtnBackToLogin_Click">
+                            <TextBlock.Text>Đăng nhập ngay</TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,111 @@
+<Window x:Class="ComputerStore_WPF.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:uc="clr-namespace:ComputerStore_WPF.Views.UserControls"
+        xmlns:vm="clr-namespace:ComputerStore_WPF.ViewModels"
+        xmlns:conv="clr-namespace:ComputerStore_WPF.Converters"
+        Title="Quản lý cửa hàng linh kiện máy tính &amp; laptop" 
+        Height="750" Width="1200" 
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        Background="#E8F1EC">
+    <Window.Resources>
+        <conv:BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        <conv:CurrencyFormatConverter x:Key="CurrencyFormat"/>
+
+        <Style x:Key="MenuButton" TargetType="Button">
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Foreground" Value="#E0EAE5"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="25,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#4A7C6B"/>
+                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="#2C3D38">
+            <DockPanel>
+
+                <StackPanel DockPanel.Dock="Top" Margin="0,25,0,25">
+                    <TextBlock Text="COMPUTER STORE" FontSize="18" FontWeight="Bold" 
+                               Foreground="#FFFFFF" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                    <TextBlock Text="{Binding WelcomeText}" FontSize="11" FontWeight="Medium" Foreground="#9CAEA8" 
+                               HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" Margin="15,0"/>
+                    <Border Height="1" Background="#4A7C6B" Margin="20,20,20,0"/>
+                </StackPanel>
+
+                <Button DockPanel.Dock="Bottom" Content="ĐĂNG XUẤT" Style="{StaticResource MenuButton}" 
+                        Foreground="#E07A5F" Margin="0,0,0,15"
+                        Command="{Binding LogoutCommand}"/>
+
+                <StackPanel>
+                    <Button Content="TỔNG QUAN" Style="{StaticResource MenuButton}" 
+                            Command="{Binding NavigateCommand}" CommandParameter="TongQuan"/>
+
+                    <Button Content="SẢN PHẨM" Style="{StaticResource MenuButton}" 
+                            Command="{Binding NavigateCommand}" CommandParameter="SanPham"/>
+
+                    <Button Content="BÁN HÀNG" Style="{StaticResource MenuButton}" 
+                            Command="{Binding NavigateCommand}" CommandParameter="BanHang"
+                            Visibility="{Binding IsNhanVienBanHang, Converter={StaticResource BoolToVis}}"/>
+                    <Button Content="BÁN HÀNG" Style="{StaticResource MenuButton}" 
+                            Command="{Binding NavigateCommand}" CommandParameter="BanHang"
+                            Visibility="{Binding IsQuanLy, Converter={StaticResource BoolToVis}}"/>
+
+                    <Button Content="NHẬP HÀNG" Style="{StaticResource MenuButton}" 
+                            Command="{Binding NavigateCommand}" CommandParameter="NhapHang"
+                            Visibility="{Binding IsThuKho, Converter={StaticResource BoolToVis}}"/>
+                    <Button Content="NHẬP HÀNG" Style="{StaticResource MenuButton}" 
+                            Command="{Binding NavigateCommand}" CommandParameter="NhapHang"
+                            Visibility="{Binding IsQuanLy, Converter={StaticResource BoolToVis}}"/>
+
+                    <Button Content="HÓA ĐƠN" Style="{StaticResource MenuButton}" 
+                            Command="{Binding NavigateCommand}" CommandParameter="HoaDon"/>
+
+                    <Button Content="KHÁCH HÀNG" Style="{StaticResource MenuButton}" 
+                            Command="{Binding NavigateCommand}" CommandParameter="KhachHang"/>
+
+                    <Button Content="THỐNG KÊ" Style="{StaticResource MenuButton}" 
+                            Command="{Binding NavigateCommand}" CommandParameter="ThongKe"
+                            Visibility="{Binding IsQuanLy, Converter={StaticResource BoolToVis}}"/>
+
+                    <Button Content="LỊCH SỬ" Style="{StaticResource MenuButton}" 
+                            Command="{Binding NavigateCommand}" CommandParameter="LichSu"
+                            Visibility="{Binding IsQuanLy, Converter={StaticResource BoolToVis}}"/>
+
+                    <Button Content="NHÂN VIÊN" Style="{StaticResource MenuButton}" 
+                            Command="{Binding NavigateCommand}" CommandParameter="NhanVien"
+                            Visibility="{Binding IsQuanLy, Converter={StaticResource BoolToVis}}"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <Border Grid.Column="1" Margin="0">
+            <ContentControl x:Name="MainContent"/>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,95 @@
+<Window x:Class="ComputerStore_WPF.Views.ThanhToanTraGopWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:conv="clr-namespace:ComputerStore_WPF.Converters"
+        Title="Thanh toán trả góp" Height="620" Width="550"
+        MinHeight="580" MinWidth="480"
+        WindowStartupLocation="CenterOwner" ResizeMode="CanResizeWithGrip"
+        Background="#E8F1EC">
+    <Window.Resources>
+        <conv:CurrencyFormatConverter x:Key="CurrencyFmt"/>
+    </Window.Resources>
+
+    <Border Background="#FFFFFF" BorderBrush="#C2D6CE" BorderThickness="1" CornerRadius="12" Margin="15" Padding="30">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel>
+                <TextBlock Text="THANH TOÁN TRẢ GÓP" FontSize="22" FontWeight="Bold" Foreground="#2A9D8F" 
+                           Margin="0,0,0,25" HorizontalAlignment="Center"/>
+
+                <!-- Tổng tiền hàng -->
+                <DockPanel Margin="0,5">
+                    <TextBlock Text="Tổng tiền hàng:" Foreground="#557A6F" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding TongTienHang, Converter={StaticResource CurrencyFmt}}" 
+                               Foreground="#2C3D38" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right"/>
+                </DockPanel>
+
+                <Border Height="1" Background="#E0EAE5" Margin="0,12"/>
+
+                <!-- Tiền trả trước -->
+                <TextBlock Text="Tiền trả trước:" Foreground="#557A6F" FontSize="14" FontWeight="SemiBold" Margin="0,5,0,6"/>
+                <TextBox Text="{Binding TienTraTruoc, UpdateSourceTrigger=PropertyChanged}" 
+                         Height="38" FontSize="15" Padding="10,7" 
+                         Background="#F8FAF9" Foreground="#2C3D38" BorderBrush="#C2D6CE" CaretBrush="#2A9D8F"/>
+
+                <!-- Số tháng + Lãi suất -->
+                <Grid Margin="0,18,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Số tháng trả góp:" Foreground="#557A6F" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                        <TextBox Text="{Binding SoThang, UpdateSourceTrigger=PropertyChanged}" 
+                                 Height="38" FontSize="15" Padding="10,7" 
+                                 Background="#F8FAF9" Foreground="#2C3D38" BorderBrush="#C2D6CE" CaretBrush="#2A9D8F"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Lãi suất (%/tháng):" Foreground="#557A6F" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                        <TextBox Text="{Binding LaiSuat, UpdateSourceTrigger=PropertyChanged}" 
+                                 Height="38" FontSize="15" Padding="10,7" 
+                                 Background="#F8FAF9" Foreground="#2C3D38" BorderBrush="#C2D6CE" CaretBrush="#2A9D8F"/>
+                    </StackPanel>
+                </Grid>
+
+                <Border Height="2" Background="#2A9D8F" Margin="0,25,0,18"/>
+
+                <!-- Kết quả tính toán -->
+                <DockPanel Margin="0,5">
+                    <TextBlock Text="Tiền trả mỗi tháng:" Foreground="#557A6F" FontSize="15" FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding TienTraMoiThang, Converter={StaticResource CurrencyFmt}}" 
+                               Foreground="#3A8970" FontWeight="Bold" FontSize="17" HorizontalAlignment="Right"/>
+                </DockPanel>
+
+                <DockPanel Margin="0,8">
+                    <TextBlock Text="Tổng tiền lãi:" Foreground="#557A6F" FontSize="15" FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding TongLai, Converter={StaticResource CurrencyFmt}}" 
+                               Foreground="#D48166" FontWeight="Bold" FontSize="15" HorizontalAlignment="Right"/>
+                </DockPanel>
+
+                <Border Height="2" Background="#E07A5F" Margin="0,10"/>
+
+                <DockPanel Margin="0,15">
+                    <TextBlock Text="TỔNG TIỀN PHẢI TRẢ:" Foreground="#E07A5F" FontSize="18" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding TongTienPhaiTra, Converter={StaticResource CurrencyFmt}}" 
+                               Foreground="#E07A5F" FontWeight="Bold" FontSize="20" HorizontalAlignment="Right"/>
+                </DockPanel>
+
+                <!-- Buttons -->
+                <Grid Margin="0,15,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="15"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="XÁC NHẬN TRẢ GÓP" Click="BtnConfirm_Click" 
+                            Height="45" FontSize="14" FontWeight="Bold" 
+                            Background="#2A9D8F" Foreground="White" BorderThickness="0" Cursor="Hand"/>
+                    <Button Grid.Column="2" Content="ĐÓNG" Click="BtnClose_Click" 
+                            Height="45" FontSize="14" FontWeight="Bold" 
+                            Background="#9CAEA8" Foreground="White" BorderThickness="0" Cursor="Hand"/>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</Window>
